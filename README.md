@@ -30,7 +30,7 @@ It's that easy!
     ├── file.mov
     └── anotherfile.mov
 ├── S002
-    ├── file.mov
+    └── file.mov
 ├── 
 └── dir
     ├── subfile.01.dpx
