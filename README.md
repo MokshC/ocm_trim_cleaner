@@ -11,26 +11,25 @@ It's that easy!
 - Find files ending in _S###.***, creates a folder for each _S### and puts media in there. Then it renames it to its original name
 
 ### Before running the script
-/example_directory
-│
-├── file_S001.mov
-├── file_S002.mov
-├── anotherfile_S001.mov
-└── dir_S001
-    ├── subfile.01.dpx
-└── dir_S002
-    ├── subfile.02.dpx
+> /example_directory
+> │
+> ├── file_S001.mov
+> ├── file_S002.mov
+> ├── anotherfile_S001.mov
+> └── dir_S001
+>     ├── subfile.01.dpx
+> └── dir_S002
+>     ├── subfile.02.dpx
     
 ### After running the script
-/example_directory
-│
-├── S001
-    ├── file.mov
-    ├── anotherfile.mov
-├── S002
-    ├── file.mov
-├── 
-└── dir
-    ├── subfile.01.dpx
-    ├── subfile.02.dpx
-
+> /example_directory
+> │
+> ├── S001
+>     ├── file.mov
+>     ├── anotherfile.mov
+> ├── S002
+>     ├── file.mov
+> ├── 
+> └── dir
+>     ├── subfile.01.dpx
+>     ├── subfile.02.dpx
