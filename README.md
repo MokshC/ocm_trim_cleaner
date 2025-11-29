@@ -17,7 +17,7 @@ It's that easy!
 ├── file_S001.mov
 ├── file_S002.mov
 ├── anotherfile_S001.mov
-└── dir_S001
+├── dir_S001
     └── subfile.01.dpx
 └── dir_S002
     └── subfile.02.dpx
