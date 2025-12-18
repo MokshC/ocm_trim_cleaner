@@ -7,8 +7,8 @@ When using media management in Davinci Resolve it renames your files. This undoe
 It's that easy!
 
 ## What it does
-- Find any directory ending in _S###, remove that extension, and consolidate media in those directories.
-- Find files ending in _S###.***, creates a folder for each _S### and puts media in there. Then it renames it to its original name
+- Find any image sequence directory ending in _S###, remove that extension, and consolidate media in those directories.
+- Find video files ending in _S###.***, creates a folder for each _S### and puts media in there. Then it renames it to its original name
 
 ### Before running the script
 ```
@@ -17,6 +17,8 @@ It's that easy!
 ├── file_S001.mov
 ├── file_S002.mov
 ├── anotherfile_S001.mov
+├── r3d_S002.RDC
+    └── rawfile.R3D
 ├── dir_S001
     └── subfile.01.dpx
 └── dir_S002
@@ -30,8 +32,9 @@ It's that easy!
     ├── file.mov
     └── anotherfile.mov
 ├── S002
-    └── file.mov
-├── 
+    ├── file.mov
+    └── r3d.RDC
+        └── rawfile.R3D
 └── dir
     ├── subfile.01.dpx
     └── subfile.02.dpx
