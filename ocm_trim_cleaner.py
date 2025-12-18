@@ -1,5 +1,5 @@
 # Moksh Chitkara
-# OCM Trim Cleaner v1.0.2
+# OCM Trim Cleaner v1.0.3
 # Last Updated: Dec 17th 2025
 
 import os
@@ -70,21 +70,38 @@ def task_out(path, verbose):
 
 # just shutil move but for threads
 def move(item, new_dir):
-    shutil.move(str(item), str(new_dir / item.name))
-    return new_dir / item.name
+    path = new_dir / item.name
+    if os.path.exists(path):
+        raise ValueError(f"The file '{path}' already exists.")    
+    else:
+        shutil.move(str(item), str(path))
+        return path
+
+# Returns True if len iterable greater than 1
+# input: iterable
+# output: Bool
+def iter_over_one(i):
+    count = 0
+    try:
+        for e in i:
+            count += 1
+            if count > 1:
+                return True
+    except:
+        raise ValueError(f"The iterable has length 0.")
+    return False
 
 # Given a path it is moved and renamed
 # input: path
 # output: none
 def cleanup(path, verbose):
 
-    matches = re.findall(r'_S\d+', path.name)           # get _S### out of name
-    new_dir = path.parent / matches[-1][1:]             # create new directory path titled S###
-    os.makedirs(new_dir, exist_ok=True)                 # create directory on system
-
-    if path.is_dir():
-        new_dir = new_dir / (re.sub(r'_S\d{3}', '', path.name))    # recreate og subdirectory without _S###
-        os.makedirs(new_dir, exist_ok=True)                         # create subdirectory on system
+    # If it is an image sequence
+    if path.is_dir() and (iter_over_one(path.iterdir())):
+        new_dir_name = re.sub(r'_S\d{3}$', '', path.name)   # get new name
+        new_dir = path.parent / new_dir_name                # create new directory path
+        os.makedirs(new_dir, exist_ok=True)                 # create directory on system
+        
         
         # move everything using multithreading
         threads = []
@@ -93,11 +110,28 @@ def cleanup(path, verbose):
             threads.append(t)
         thread_finish(t, threads)
     
+        path.rmdir()                                        # delete old directory
+    
+        if verbose:
+            print(f"Moved {path} -> {new_dir}")
+        return 
+
+    matches = re.findall(r'_S\d+', path.name)           # get _S### out of name
+    new_dir = path.parent / matches[-1][1:]             # create new directory path titled S###
+    os.makedirs(new_dir, exist_ok=True)                 # create directory on system
+    
+    # If it is a R3D file
+    if path.is_dir() and not (iter_over_one(path.iterdir())):
+        new_dir = new_dir / (re.sub(r'_S\d{3}', '', path.name))     # recreate og subdirectory without _S###
+        os.makedirs(new_dir, exist_ok=True)                         # create subdirectory on system
+        
+        move(next(path.iterdir()), new_dir)                     # move the file
         path.rmdir()                                            # delete old directory
     
         if verbose:
             print(f"Moved {path} -> {new_dir}")
     
+    # if it is a video file
     else:
         moved_path = move(path, new_dir)                        # move the item
         
