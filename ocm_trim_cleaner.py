@@ -1,3 +1,7 @@
+# Moksh Chitkara
+# OCM Trim Cleaner v1.0.2
+# Last Updated: Dec 17th 2025
+
 import os
 import sys
 import re
@@ -49,8 +53,8 @@ def task_out(path, verbose):
 
     try:                                                            # get the path with error check
         entries = os.listdir(path)
-    except Exception as e:
-        print(f"Failed to read the directory: {e}")
+    except:
+        print(f"Failed to read the directory: {path}")
 
     tasks = []                                                      # for each entry
     for entry in entries:
@@ -74,11 +78,13 @@ def move(item, new_dir):
 # output: none
 def cleanup(path, verbose):
 
+    matches = re.findall(r'_S\d+', path.name)           # get _S### out of name
+    new_dir = path.parent / matches[-1][1:]             # create new directory path titled S###
+    os.makedirs(new_dir, exist_ok=True)                 # create directory on system
+
     if path.is_dir():
-        new_dir_name = re.sub(r'_S\d{3}$', '', path.name)   # get new name
-        new_dir = path.parent / new_dir_name                # create new directory path
-        os.makedirs(new_dir, exist_ok=True)                 # create directory on system
-        
+        new_dir = new_dir / (re.sub(r'_S\d{3}', '', path.name))    # recreate og subdirectory without _S###
+        os.makedirs(new_dir, exist_ok=True)                         # create subdirectory on system
         
         # move everything using multithreading
         threads = []
@@ -87,18 +93,15 @@ def cleanup(path, verbose):
             threads.append(t)
         thread_finish(t, threads)
     
-        path.rmdir()                                        # delete old directory
+        path.rmdir()                                            # delete old directory
     
         if verbose:
             print(f"Moved {path} -> {new_dir}")
     
     else:
-        matches = re.findall(r'_S\d+', path.name)           # get _S### out of name
-        new_dir = path.parent / matches[-1][1:]             # create new directory path titled S###
-        os.makedirs(new_dir, exist_ok=True)                 # create directory on system
-        moved_path = move(path, new_dir)                    # move the item
+        moved_path = move(path, new_dir)                        # move the item
         
-        new_file_name = re.sub(r'_S\d+', '', moved_path.name)   # rename it removing S###
+        new_file_name = re.sub(r'_S\d{3}', '', moved_path.name)   # rename it removing S###
         renamed_path = moved_path.parent / new_file_name        # create path
         moved_path.rename(renamed_path)                         # do the rename on system
 
