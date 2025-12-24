@@ -98,8 +98,6 @@ def iter_over_one(i):
 # output: none
 def cleanup(path, verbose):
 
-    print("ITER DER", path, iter_over_one(path.iterdir()))
-
     # If it is an image sequence
     if path.is_dir() and not str(path).endswith(".RDC"):
         new_dir_name = re.sub(r'_S\d{3}$', '', path.name)   # get new name
