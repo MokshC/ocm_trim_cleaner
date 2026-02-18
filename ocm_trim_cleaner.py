@@ -1,6 +1,9 @@
 # Moksh Chitkara
 # OCM Trim Cleaner v1.0.4
 # Last Updated: Dec 23th 2025
+# Copyright (C) 2026  Moksh Chitkara
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>
 
 import os
 import sys

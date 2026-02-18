@@ -5,6 +5,7 @@ When using media management in Davinci Resolve it renames your files. This undoe
 1. Run Davinci Resolve's Media Management to an empty directory
 2. Open terminal and type this command `python ./ocm_trim_cleaner.py /path/to/media`
 It's that easy!
+3. Optionally add `-v` or `--verbose` for more info when the program is running
 
 ## What it does
 - Find any image sequence directory ending in _S###, remove that extension, and consolidate media in those directories.
