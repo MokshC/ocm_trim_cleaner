@@ -1,6 +1,6 @@
 # Moksh Chitkara
-# OCM Trim Cleaner v1.0.4
-# Last Updated: Dec 23th 2025
+# OCM Trim Cleaner v1.0.5
+# Last Updated: Feb 24th 2026
 # Copyright (C) 2026  Moksh Chitkara
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>
@@ -79,7 +79,7 @@ def move(item, new_dir, verbose):
     else:
         shutil.move(str(item), str(path))
         if verbose:
-            print(f"Moved {item} -> {path}")
+            print(f"Moved {item} -> {new_dir}")
         return path
 
 # Returns True if len iterable greater than 1
