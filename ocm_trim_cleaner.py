@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Moksh Chitkara
-# OCM Trim Cleaner v1.0.6
+# OCM Trim Cleaner v1.0.7
 # Last Updated: Jul 11th 2026
 # Copyright (C) 2026  Moksh Chitkara
 # You should have received a copy of the GNU General Public License
@@ -12,24 +12,23 @@ import re
 import shutil
 from pathlib import Path
 import threading
+import argparse
 
 # get input from user with optional verbose flag
 def ask_user():
-    args = sys.argv
-    
-    if len(args) >= 2:                              # if theres multiple args
-        verbose = False                             
-        for arg in args[1:]:                        # check for -v flag
-            if arg in ("-v", "--verbose"):
-                verbose = True
-            elif arg in ("-h", "--help"):           # or -h flag
-                raise ValueError("Usage: ocm-trim-renamer <directory_path> [-v|--verbose]")
-            else:                                   # and set the path
-                path = Path(arg)
-    else:                                           # otherwise give a hint on how to use it
-        raise ValueError("Usage: ocm-trim-renamer <directory_path> [-v|--verbose]")
+    parser = argparse.ArgumentParser(
+        prog="ocm_trim_cleaner",
+        description="OCM Trim Cleaner",
+    )
+    parser.add_argument("directory_path", help="Directory to clean")
+    parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose output")
 
-    if path.exists() and path.is_dir():             # if the path exists continue, else error
+    args = parser.parse_args()
+
+    path = Path(args.directory_path)
+    verbose = args.verbose
+
+    if path.exists() and path.is_dir():
         return path, verbose
     else:
         raise ValueError(f"The directory '{path}' does not exist or is not a directory.")
