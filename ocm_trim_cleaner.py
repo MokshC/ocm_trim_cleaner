@@ -1,6 +1,7 @@
+#!/usr/bin/env python3
 # Moksh Chitkara
-# OCM Trim Cleaner v1.0.5
-# Last Updated: Feb 24th 2026
+# OCM Trim Cleaner v1.0.6
+# Last Updated: Jul 11th 2026
 # Copyright (C) 2026  Moksh Chitkara
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>
